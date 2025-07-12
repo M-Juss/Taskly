@@ -11,7 +11,7 @@ function App() {
     // -> Task Submitted with its function checked, edit, and delete
 
     <>
-      <TaskContainer/>
+      <TaskContainer />
     </>
   )
 }
