@@ -35,15 +35,16 @@ useEffect(() => {
   } 
 
   const handleEditTask = (index) => {
-   const editTasks = tasks.map((task, i) => {
-      if(i === index){
-        return{
+    const isAnyTaskEditing = tasks.some(task => task.isEditing)
+
+    if(isAnyTaskEditing) return;
+
+    setEditTaskInput(tasks[index].text)
+
+    const editTasks = tasks.map((task, i) => ({
           ...task,
-          isEditing: true
-        }
-      }
-      return task
-    })
+          isEditing: i === index
+    }))
     setTasks(editTasks)
   }
   
@@ -68,7 +69,7 @@ const handleSubmitEditedTask = (index) => {
     <div className='flex flex-col justify-center items-center h-screen w-full'>
       <h1 className='text-5xl font-medium text-accent pb-5 '>Taskly</h1>
       <div className='h-fit w-100 bg-neutral rounded-2xl shadow-2xl px-5 py-5'>
-        <div className='flex shadow-2xl'>
+        <div className='flex shadow-2xl p'>
           <input
             type="text"
             value={taskInput}
@@ -110,7 +111,7 @@ const handleSubmitEditedTask = (index) => {
             </span>
 
             <HiPencilSquare className='mr-4' size={22} onClick={() => handleEditTask(index)}/>
-            <FaTrashAlt className='mr-4' size={18} onClick={() =>handleDeleteTask(index)}/>
+            <FaTrashAlt className='mr-4' size={18} onClick={() => handleDeleteTask(index)}/>
               </>
 
             )
